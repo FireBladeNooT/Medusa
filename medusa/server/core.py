@@ -18,6 +18,7 @@ from .web import CalendarHandler, KeyHandler, LoginHandler, LogoutHandler
 from .. import logger
 from ..helper.encoding import ek
 from ..helpers import create_https_certificates, generateApiKey
+from ..ws import MedusaWebSocketHandler
 
 
 class SRWebServer(threading.Thread):  # pylint: disable=too-many-instance-attributes
@@ -56,6 +57,9 @@ class SRWebServer(threading.Thread):  # pylint: disable=too-many-instance-attrib
             app.API_KEY = generateApiKey()
         self.options['api_root'] = r'{root}/api/(?:v1/)?{key}'.format(root=app.WEB_ROOT, key=app.API_KEY)
         self.options['api_v2_root'] = r'{root}/api/v2'.format(root=app.WEB_ROOT)
+
+        # websocket root
+        self.options['web_socket'] = r'{root}/ws'.format(root=sickbeard.WEB_ROOT)
 
         # tornado setup
         self.enable_https = self.options['enable_https']
@@ -115,6 +119,11 @@ class SRWebServer(threading.Thread):  # pylint: disable=too-many-instance-attrib
             (r'{base}/show/?([0-9]*)/?'.format(base=self.options['api_v2_root']), ShowHandler),
             (r'{base}/info/?([A-Za-z0-9_-]*)/?'.format(base=self.options['api_v2_root']), InfoHandler),
             (r'{base}/log/?(?P<log_level>[0-9]*)/?'.format(base=self.options['api_v2_root']), LogHandler)
+        ])
+
+        # Websocket handler
+        self.app.add_handlers(".*$", [
+            (r'%{base}/ui(/?.*)'.format(base=self.options['web_socket']), MedusaWebSocketHandler.WebSocketUIHandler),
         ])
 
         # Static File Handlers
