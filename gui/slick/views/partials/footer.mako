@@ -58,6 +58,7 @@
             </div>
         </div>
     </footer>
+<<<<<<< f8c630e337077f7646b133a1013654ac9aecd394
     <script type="text/javascript" src="js/vender.min.js?${sbPID}"></script>
     <script type="text/javascript" src="js/lib/jquery.cookiejar.js?${sbPID}"></script>
     <script type="text/javascript" src="js/lib/jquery.form.min.js?${sbPID}"></script>
@@ -110,5 +111,19 @@
     <script type="text/javascript" src="js/lib/jquery.scrolltopcontrol-1.1.js?${sbPID}"></script>
     <script type="text/javascript" src="js/browser.js?${sbPID}"></script>
     <script type="text/javascript" src="js/ajax-notifications.js?${sbPID}"></script>
+=======
+    <script type="text/javascript" src="${srRoot}/js/vender.min.js?${sbPID}"></script>
+    <script type="text/javascript" src="${srRoot}/js/lib/jquery.cookiejar.js?${sbPID}"></script>
+    <script type="text/javascript" src="${srRoot}/js/lib/jquery.form.min.js?${sbPID}"></script>
+    <script type="text/javascript" src="${srRoot}/js/lib/jquery.json-2.2.min.js?${sbPID}"></script>
+    <script type="text/javascript" src="${srRoot}/js/lib/jquery.selectboxes.min.js?${sbPID}"></script>
+    <script type="text/javascript" src="${srRoot}/js/lib/formwizard.js?${sbPID}"></script>
+    <script type="text/javascript" src="${srRoot}/js/parsers.js?${sbPID}"></script>
+    <script type="text/javascript" src="${srRoot}/js/rootDirs.js?${sbPID}"></script>
+    <script type="text/javascript" src="${srRoot}/js/core.js?${sbPID}"></script>
+    <script type="text/javascript" src="${srRoot}/js/lib/jquery.scrolltopcontrol-1.1.js?${sbPID}"></script>
+    <script type="text/javascript" src="${srRoot}/js/browser.js?${sbPID}"></script>
+    <script type="text/javascript" src="${srRoot}/js/ajax-notifications.js?${sbPID}"></script>
+>>>>>>> POC: First working implementation of websockets.
 % endif
 <!-- END FOOTER -->

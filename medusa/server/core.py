@@ -59,7 +59,7 @@ class SRWebServer(threading.Thread):  # pylint: disable=too-many-instance-attrib
         self.options['api_v2_root'] = r'{root}/api/v2'.format(root=app.WEB_ROOT)
 
         # websocket root
-        self.options['web_socket'] = r'{root}/ws'.format(root=sickbeard.WEB_ROOT)
+        self.options['web_socket'] = r'{root}/ws'.format(root=app.WEB_ROOT)
 
         # tornado setup
         self.enable_https = self.options['enable_https']

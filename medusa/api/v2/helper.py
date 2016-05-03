@@ -1,5 +1,6 @@
-import sickbeard
 import base64
+import sickbeard
+
 
 def api_auth(self):
     web_username = sickbeard.WEB_USERNAME
@@ -17,6 +18,7 @@ def api_auth(self):
     if (web_username != api_username and web_password != api_password) and (sickbeard.API_KEY != api_key):
         api_finish(2)
     pass
+
 
 def api_finish(error_code=-1, **data):
     ERRORS = {

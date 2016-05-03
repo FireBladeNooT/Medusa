@@ -1,34 +1,14 @@
+import base64
+
 import sickbeard
-
-#from helper import api_auth, api_finish
-
-from tornado.web import RequestHandler
+from sickbeard import helpers, network_timezones, sbdatetime
+from sickbeard.server.api.v1.core import CMD_ShowCache, CMD_ShowSeasonList, _map_quality
 from tornado.routes import route
-
-from sickbeard import (classes, db, helpers, image_cache, logger, network_timezones, 
-                       processTV, sbdatetime, search_queue, ui)
-from sickbeard.common import (Overview, Quality, statusStrings,
-                              ARCHIVED, DOWNLOADED, FAILED, IGNORED, SKIPPED, SNATCHED, SNATCHED_PROPER,
-                              UNAIRED, UNKNOWN, WANTED)
-from sickbeard.versionChecker import CheckVersion
-
-from sickrage.helper.common import (dateFormat, dateTimeFormat, pretty_file_size,
-                                    sanitize_filename, timeFormat, try_int)
-from sickrage.helper.encoding import ek
-from sickrage.helper.exceptions import (ex, CantUpdateShowException, ShowDirectoryNotFoundException)
-
-from sickrage.helper.quality import get_quality_string
-from sickrage.media.ShowFanArt import ShowFanArt
-from sickrage.media.ShowNetworkLogo import ShowNetworkLogo
-from sickrage.media.ShowPoster import ShowPoster
-from sickrage.media.ShowBanner import ShowBanner
-from sickrage.show.ComingEpisodes import ComingEpisodes
-from sickrage.show.History import History
-from sickrage.show.Show import Show
-from sickrage.system.Restart import Restart
-from sickrage.system.Shutdown import Shutdown
-
-from sickbeard.webapi import CMD_ShowSeasonList, CMD_ShowCache
+from tornado.web import RequestHandler
+from ...helper.common import dateFormat, timeFormat, try_int
+from ...helper.exceptions import ShowDirectoryNotFoundException
+from ...helper.quality import get_quality_string
+from ...show.Show import Show
 
 
 class BaseRequestHandler(RequestHandler):
@@ -180,7 +160,7 @@ class ShowsHandler(BaseRequestHandler):
             shows = {}
             for show in sickbeard.showList:
                 # If self.get_argument("paused") is None: show all, 0: show un-paused, 1: show paused
-                if self.get_argument("paused", default=None) is not None and self.get_argument("paused", default=None) != curShow.paused:
+                if self.get_argument("paused", default=None) is not None and self.get_argument("paused", default=None) != show.paused:
                     continue
 
                 indexer_show = helpers.mapIndexersToShow(show)
