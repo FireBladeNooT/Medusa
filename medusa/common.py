@@ -536,6 +536,7 @@ class Quality(object):
 
         # 2 corresponds to SDDVD quality
         if quality == 2:
+            do_i_replace = True
             if re.search(r"b(r|d|rd)?(-| |\.)?(rip|mux)", name.lower()):
                 rip_type = " BDRip"
             elif re.search(r"(dvd)(-| |\.)?(rip|mux)?", name.lower()):
@@ -545,6 +546,7 @@ class Quality(object):
 
         # If HDTV or SDTV
         if (quality == 1 or quality == 4):
+            do_i_replace = True
             if re.search(r"ahdtv", name.lower()):
                 rip_type = " AHDTV"
             elif re.search(r"pdtv", name.lower()):
@@ -558,6 +560,7 @@ class Quality(object):
 
         # If any web type
         if (quality == 32 or quality == 64 or quality == 1024 or quality == 8192):
+            do_i_replace = True
             if re.search(r"web", name.lower()):
                 rip_type = " WEB"
             elif re.search(r"webrip", name.lower()):
@@ -579,11 +582,11 @@ class Quality(object):
             elif found_codec in h265_list:
                 found_codec = h265_list[0]
 
-            if quality == 2:
+            if do_i_replace:
                 return rip_type + " " + found_codec
             else:
                 return " " + found_codec
-        elif quality == 2:
+        elif do_i_replace:
             return rip_type
         else:
             return ""
