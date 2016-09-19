@@ -1,10 +1,10 @@
 import base64
-import sickbeard
+import medusa as app
 
 
 def api_auth(self):
-    web_username = sickbeard.WEB_USERNAME
-    web_password = sickbeard.WEB_PASSWORD
+    web_username = app.WEB_USERNAME
+    web_password = app.WEB_PASSWORD
     api_key = self.get_argument("api_key", default="")
     api_username = ""
     api_password = ""
@@ -15,7 +15,7 @@ def api_auth(self):
         api_username, api_password = auth_decoded.split(':', 2)
         api_key = api_username
 
-    if (web_username != api_username and web_password != api_password) and (sickbeard.API_KEY != api_key):
+    if (web_username != api_username and web_password != api_password) and (app.API_KEY != api_key):
         api_finish(2)
     pass
 

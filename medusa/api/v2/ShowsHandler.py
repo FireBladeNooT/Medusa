@@ -1,21 +1,21 @@
 import base64
 
-import sickbeard
-from sickbeard import helpers, network_timezones, sbdatetime
-from sickbeard.server.api.v1.core import CMD_ShowCache, CMD_ShowSeasonList, _map_quality
+import medusa as app
 from tornado.routes import route
 from tornado.web import RequestHandler
+from ... import helpers, network_timezones, sbdatetime
 from ...helper.common import dateFormat, timeFormat, try_int
 from ...helper.exceptions import ShowDirectoryNotFoundException
 from ...helper.quality import get_quality_string
+from ...server.api.v1.core import CMD_ShowCache, CMD_ShowSeasonList, _map_quality
 from ...show.Show import Show
 
 
 class BaseRequestHandler(RequestHandler):
     """A base class used for shared RequestHandler methods"""
     def api_auth(self):
-        web_username = sickbeard.WEB_USERNAME
-        web_password = sickbeard.WEB_PASSWORD
+        web_username = app.WEB_USERNAME
+        web_password = app.WEB_PASSWORD
         api_key = self.get_argument("api_key", default="")
         api_username = ""
         api_password = ""
@@ -26,7 +26,7 @@ class BaseRequestHandler(RequestHandler):
             api_username, api_password = auth_decoded.split(':', 2)
             api_key = api_username
 
-        if (web_username != api_username and web_password != api_password) and (sickbeard.API_KEY != api_key):
+        if (web_username != api_username and web_password != api_password) and (app.API_KEY != api_key):
             self.api_finish(2)
         pass
 
@@ -84,7 +84,7 @@ class ShowsHandler(BaseRequestHandler):
         self.indexerid = show_id
         if show_id:
             """ Get detailed information about a show """
-            show_obj = Show.find(sickbeard.showList, int(self.indexerid))
+            show_obj = Show.find(app.showList, int(self.indexerid))
             if not show_obj:
                 self.api_finish(1)
 
@@ -158,7 +158,7 @@ class ShowsHandler(BaseRequestHandler):
             self.api_finish({"show": show_dict})
         else:
             shows = {}
-            for show in sickbeard.showList:
+            for show in app.showList:
                 # If self.get_argument("paused") is None: show all, 0: show un-paused, 1: show paused
                 if self.get_argument("paused", default=None) is not None and self.get_argument("paused", default=None) != show.paused:
                     continue
