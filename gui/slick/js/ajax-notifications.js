@@ -1,4 +1,4 @@
-var ws_message_url = 'ws/ui'; // eslint-disable-line xo/filename-case
+var WSMessageUrl = 'ws/ui'; // eslint-disable-line xo/filename-case
 var test = !1;
 
 var iconUrl = 'images/ico/favicon-120.png';
@@ -26,8 +26,8 @@ function displayPNotify(type, title, message) {
     });
 }
 
-function ws_check_notifications() {
-    var ws = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + ws_message_url);
+function WSCheckNotifications() {
+    var ws = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + WSMessageUrl);
     ws.onmessage = function(evt) {
         var parsedJson = $.parseJSON(evt.data);
 
@@ -40,6 +40,8 @@ function ws_check_notifications() {
 
 $(document).ready(function(){
     //check_notifications();
-    ws_check_notifications();
-    if(test) displayPNotify('notice', 'test', 'test<br><i class="test-class">hello <b>world</b></i><ul><li>item 1</li><li>item 2</li></ul>');
+    WSCheckNotifications();
+    if (test) { 
+        displayPNotify('notice', 'test', 'test<br><i class="test-class">hello <b>world</b></i><ul><li>item 1</li><li>item 2</li></ul>');
+    }
 });
