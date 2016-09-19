@@ -17,7 +17,6 @@ def api_auth(self):
 
     if (web_username != api_username and web_password != api_password) and (app.API_KEY != api_key):
         api_finish(2)
-    pass
 
 
 def api_finish(error_code=-1, **data):
