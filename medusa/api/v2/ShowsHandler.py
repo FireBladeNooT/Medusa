@@ -28,7 +28,6 @@ class BaseRequestHandler(RequestHandler):
 
         if (web_username != api_username and web_password != api_password) and (app.API_KEY != api_key):
             self.api_finish(2)
-        pass
 
     def api_finish(self, error_code=-1, **data):
         ERRORS = {
@@ -81,9 +80,9 @@ class ShowsHandler(BaseRequestHandler):
         self.api_auth()
 
     def get(self, show_id=""):
+        """Get detailed information about a show."""
         self.indexerid = show_id
         if show_id:
-            """ Get detailed information about a show """
             show_obj = Show.find(app.showList, int(self.indexerid))
             if not show_obj:
                 self.api_finish(1)
